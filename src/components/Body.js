@@ -1,12 +1,26 @@
 import RestaurantCard from "./RestaurantCard";
 import fakeSwiggyData from "../utils/mockData";
+import { useState } from "react";
 
 const Body = () => {
+  let [restaurantData, setRestaurantData] = useState(fakeSwiggyData);
   return (
     <div className="body">
-      <div className="search">search</div>
+      <div className="filter">
+        <button
+          className="filterBtn"
+          onClick={() => {
+            let filteredData = restaurantData.filter(
+              (res) => res.ratings > 4.3
+            );
+            setRestaurantData(filteredData);
+          }}
+        >
+          Top rated restaurants
+        </button>
+      </div>
       <div className="res-container">
-        {fakeSwiggyData.map((restaurant) => {
+        {restaurantData.map((restaurant) => {
           return <RestaurantCard key={restaurant.id} data={restaurant} />;
         })}
       </div>
